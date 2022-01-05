@@ -1,38 +1,229 @@
-.App {
+body {
+  background-color: #2b2433;
+  font-family: 'Open Sans', sans-serif;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 24px;
+  color: #505050;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 span {
+  color: #8d8fa8;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h2 {
+  color: #8d8fa8;
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+}
+
+h3 {
+  color: #8d8fa8;
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  margin-bottom: 0;
+}
+
+p {
+  color: #666;
+}
+
+a {
+  color: #bd8cbf;
+}
+
+a:visited {
+  color: #6b506d;
+}
+
+ul {
+  padding-left: 20px;
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2022";
+  position: absolute;
+  color: #8d8fa8;
+  font-weight: bold;
+  display: inline;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.App {
+  display: inline-block;
+  margin: 0 auto;
+  text-align: left;
+  padding: 0 20px;
+}
+
+.header {
+  margin-top: 50px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo-wrapper {
+  position: relative;
+  width: 120px;
+  height: 100px;
+}
+
+.logo-wrapper img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.logo-wrapper img:nth-of-type(1) {
+  z-index: 4;
+}
+
+.logo-wrapper img:nth-of-type(2) {
+  z-index: 3;
+  top: 18px;
+}
+
+.logo-wrapper img:nth-of-type(3) {
+  z-index: 2;
+  top: 23px;
+}
+
+.logo-wrapper img:nth-of-type(4) {
+  z-index: 1;
+  top: 40px;
+}
+
+.header-item {
+  margin: 0 10px;
+}
+
+.header-item:first-child {
+  margin-left: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: normal;
+  justify-content: center;
+}
+
+.sections {
+  margin-bottom: 50px;
+}
+
+.sections .border {
+  position: relative;
+}
+
+.sections section {
+  margin-top: 50px;
+  max-width: 420px;
+}
+
+.sections section {
+  position: relative;
+}
+
+
+.portfolio-icon {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border: #8d8fa8 solid 4px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.portfolio-icon > * {
+  position: absolute;
+  width: 100%;
+}
+
+.portfolio-icon > span {
+  color: #2b2433;
+  font-size: 56px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.sections section:nth-of-type(1) .portfolio-icon {
+  border-color: #7accc8;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.sections section:nth-of-type(1) .portfolio-icon > span {
+  color: #7accc8;
+}
+
+.sections section:nth-of-type(2) .portfolio-icon {
+  border-color: #8393ca;
+}
+
+.sections section:nth-of-type(2) .portfolio-icon > span {
+  color: #8393ca;
+}
+
+.sections section:nth-of-type(3) .portfolio-icon {
+  border-color: #bd8cbf;
+}
+
+.sections section:nth-of-type(3) .portfolio-icon > span {
+  color: #bd8cbf;
+}
+
+.sections section:nth-of-type(4) .portfolio-icon {
+  border-color: #a186be;
+}
+
+.sections section:nth-of-type(4) .portfolio-icon > span {
+  color: #a186be;
+}
+
+@media (min-width: 660px) {
+  h1 {
+    font-size: 38px;
   }
-  to {
-    transform: rotate(360deg);
+  .App {
+    padding: 0;
+  }
+
+  .header {
+    transform: translateX(-58px);
+  }
+
+  .sections .border::before {
+    position: absolute;
+    content: '';
+    top: -25px;
+    left: 0;
+    background-color: #8d8fa8;
+    width: 4px;
+    height: calc(100% + 25px + 50px + 46px);
+    border-radius: 2px;
+  }
+
+  .sections section {
+    padding-left: 64px;
+  }
+
+  .sections section::before {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    content: '';
+    width: 50px;
+    background-color: #8d8fa8;
+    height: 4px;
+    border-radius: 2px;
   }
 }
