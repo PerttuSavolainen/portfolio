@@ -10,8 +10,8 @@ export interface IRepo {
 
 export interface IRecentRepo {
   name: string;
-  desc: string;
-  link: string;
+  description: string;
+  url: string;
 }
 
 export interface ILink {

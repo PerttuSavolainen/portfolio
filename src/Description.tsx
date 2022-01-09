@@ -1,11 +1,9 @@
-import './Description.css';
-
 interface IDescriptionProps {
   description: {
     name?: string;
     bio?: string;
     location?: string;
-    link?: string;
+    url?: string;
   };
 }
 
@@ -14,7 +12,7 @@ const Description = ({ description }: IDescriptionProps) => {
     name,
     bio,
     location,
-    link,
+    url,
   } = description || {};
 
   return (
@@ -28,7 +26,7 @@ const Description = ({ description }: IDescriptionProps) => {
       <h2>{name}</h2>
       <p>{bio}</p>
       <p>Location: {location}</p>
-      <p><a href={link}>Link to Github profile</a></p>
+      <p><a href={url}>Link to Github profile</a></p>
     </section>
   );
 };

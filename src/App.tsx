@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { ILink, IRecentRepo, IRepo } from './interfaces';
+import { ILink, IRecentRepo } from './interfaces';
 
 import logoLayer1 from './logo-layer1.png';
 import logoLayer2 from './logo-layer2.png';
@@ -53,89 +53,18 @@ const App = () => {
 
   // fetch data
   useEffect(() => {
-    const fetchDescription = async () => {
-      return fetch("https://api.github.com/users/PerttuSavolainen", {
-        headers: {
-          Accept: 'application/vnd.github.v3+json',
-        },
-      }).then(res => res.json());
-    };
-
-    const fetchRepos = async () => {
-      return fetch("https://api.github.com/users/PerttuSavolainen/repos", {
-        headers: {
-          Accept: 'application/vnd.github.v3+json',
-        },
-      }).then(res => res.json());
-    };
-
-    const handleRepoData = (rawData: IRepo[]): { topics: string[]; repos: IRecentRepo[]; } => {
-      // topics
-      const filteredTopics = rawData
-        .filter((repo) =>
-          !repo.archived &&
-          !repo.fork &&
-          repo.topics.length > 0)
-        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        .map(repo => repo.topics)
-        .flat();
-
-      const topics = filteredTopics
-        // remove duplicates and then pick first 10
-        .filter((topic, index) => filteredTopics.indexOf(topic) === index)
-        .splice(0, 10);
-
-      // repos
-      const offLimitsRepos = ['perttusavolainen.github.io', 'DeleteMe'];
-
-      const filteredRepos: IRecentRepo[] = rawData
-        .filter(repo =>
-          !offLimitsRepos.includes(repo.name) &&
-          !repo.archived &&
-          !repo.fork
-        )
-        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        .splice(0, 3)
-        .map(repo => ({
-          name: repo.name,
-          desc: repo.description,
-          link: repo.html_url,
-        }));
-
-      return {
-        topics,
-        repos: filteredRepos,
-      };
+    const fetchPortfolioData = async () => {
+      return fetch(process.env.REACT_APP_BACKEND_ENDPOINT as string)
+        .then(res => res.json());
     };
 
     const fetchData = async () => {
       try {
-        const [
-          // description
-          {
-            name: githubName,
-            bio,
-            location: userLocation,
-            html_url: profileLink,
-          },
-          // repos
-          reporyData,
-        ] = await Promise.all([
-          fetchDescription(),
-          fetchRepos(),
-        ]);
+        const { topics, repositories, ...description } = await fetchPortfolioData();
 
-        const { topics, repos } = handleRepoData(reporyData);
-
-        setDescription({
-          name: githubName,
-          bio,
-          location: userLocation,
-          link: profileLink,
-        });
-
+        setDescription(description);
         setBuzzwords(topics);
-        setRecentRepos(repos);
+        setRecentRepos(repositories);
       } catch (error) {
         console.error(error);
       }
@@ -173,7 +102,7 @@ const App = () => {
           <div className='border'>
             <Description description={description} />
             <Buzzwords buzzwords={buzzwords} />
-            <Repos repos={recentRepos} />
+            <Repos repositories={recentRepos} />
           </div>
           <Links links={links} />
         </div>
